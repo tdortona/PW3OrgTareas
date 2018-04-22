@@ -6,24 +6,20 @@ using System.Web.Mvc;
 
 namespace PW3OrgTareas.Controllers
 {
-    public class HomeController : Controller
+    public class CarpetaController : Controller
     {
+        // GET: Carpeta
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Login()
+        public ActionResult Crear()
         {
             return View();
         }
 
-        public ActionResult Logout()
-        {
-            return View();
-        }
-
-        public ActionResult Registro()
+        public ActionResult Tareas(int idCarpeta)
         {
             return View();
         }
