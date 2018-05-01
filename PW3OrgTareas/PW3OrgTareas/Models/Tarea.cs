@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PW3OrgTareas.Models
 {
     public class Tarea
     {
         public int IdTarea { get; set; }
+
+        public int IdUsuario { get; set; }
 
         public DateTime FechaCreacion { get; set; }
 
@@ -17,12 +16,12 @@ namespace PW3OrgTareas.Models
 
         public string Descripcion{ get; set; }
 
-        public string Prioridad { get; set; }
+        public int Prioridad { get; set; }
 
         public Carpeta Carpeta { get; set; }
 
-        public int Estimado { get; set; }
+        public decimal EstimadoHoras { get; set; }
 
-        public bool Completada { get; set; }
+        public int Completada { get; set; }
     }
 }

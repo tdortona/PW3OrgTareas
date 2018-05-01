@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PW3OrgTareas.Models
 {
@@ -16,5 +13,13 @@ namespace PW3OrgTareas.Models
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public int Activo { get; set; }
+
+        public DateTime FechaRegistracion { get; set; }
+
+        public DateTime FechaActivacion { get; set; }
+
+        public string CodigoActivacion { get; set; }
     }
 }

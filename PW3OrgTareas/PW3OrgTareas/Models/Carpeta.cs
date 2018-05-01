@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PW3OrgTareas.Models
 {
@@ -9,8 +6,12 @@ namespace PW3OrgTareas.Models
     {
         public int IdCarpeta { get; set; }
 
+        public int IdUsuario { get; set; }
+
         public string Nombre { get; set; }
 
         public string Descripcion { get; set; }
+
+        public DateTime FechaCreacion { get; set; }
     }
 }

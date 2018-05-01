@@ -148,7 +148,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ArchivoTarea.cs" />
     <Compile Include="Models\Carpeta.cs" />
+    <Compile Include="Models\ComentarioTarea.cs" />
     <Compile Include="Models\Tarea.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
