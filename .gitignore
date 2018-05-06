@@ -1,2 +1,9 @@
 /PW3OrgTareas/.vs/PW3OrgTareas/v15/*.suo
 /PW3OrgTareas/PW3OrgTareas/obj/Debug/*.cache
+/PW3OrgTareas/PW3OrgTareas/bin/*.dll
+/PW3OrgTareas/PW3OrgTareas/bin/*.pdb
+/PW3OrgTareas/PW3OrgTareas/obj/Debug/*.dll
+/PW3OrgTareas/PW3OrgTareas/obj/Debug/*.pdb
+/PW3OrgTareas/.vs/config/applicationhost.config
+/PW3OrgTareas/.vs/PW3OrgTareas/v15/*.*
+/PW3OrgTareas/PW3OrgTareas/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
