@@ -1,0 +1,6 @@
+Ppal: #009588
+Sec: #6F9995
+Ter: #52FF8E
+-------------
+Otros: #FF92BC
+Links: #CC2DBA
