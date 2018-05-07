@@ -10,3 +10,4 @@
 *.cache
 *.sqlite
 /PW3OrgTareas/PW3OrgTareas/*.user
+/.vs/VSWorkspaceState.json
