@@ -1,1 +1,54 @@
-﻿<h2>Registro</h2>
+﻿<form action="action_page.php">
+    <div class="container">
+        <h1>Registro</h1>
+        <p>Por favor, complet&aacute; este formulario para crear tu cuenta.</p>
+        <hr>
+        <div>
+            <div>
+                <label for="nombre"><b>Nombre</b></label>
+            </div>
+            <div>
+                <input type="text" placeholder="Ingresa tu nombre" name="nombre" required>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label for="apellido"><b>Apellido</b></label>
+            </div>
+            <div>
+                <input type="text" placeholder="Ingresa tu apellido" name="apellido" required>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label for="email"><b>Email</b></label>
+            </div>
+            <div>
+                <input type="text" placeholder="Ingresa tu Email" name="email" required>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label for="psw"><b>Password</b></label>
+            </div>
+            <div>
+                <input type="password" placeholder="Ingresa tu Password" name="psw" required>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label for="psw-repeat"><b>Confirmar Password</b></label>
+            </div>
+            <div>
+                <input type="password" placeholder="Confirma tu Password" name="psw-repeat" required>
+            </div>
+        </div>
+        <hr>
+
+        <button type="submit" class="registerbtn">Registrate</button>
+    </div>
+
+    <div class="container signin">
+        <p>¿Ya ten&eacute;s una cuenta? <a href="/Home/Login">¡Logueate!</a>.</p>
+    </div>
+</form>

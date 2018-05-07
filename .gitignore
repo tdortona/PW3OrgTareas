@@ -7,3 +7,6 @@
 /PW3OrgTareas/.vs/config/applicationhost.config
 /PW3OrgTareas/.vs/PW3OrgTareas/v15/*.*
 /PW3OrgTareas/PW3OrgTareas/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+*.cache
+*.sqlite
+/PW3OrgTareas/PW3OrgTareas/*.user

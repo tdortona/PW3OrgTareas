@@ -162,6 +162,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\ico\favicon-area-chart.ico" />
+    <Content Include="img\ico\favicon-asterisk.ico" />
+    <Content Include="img\ico\favicon-book.ico" />
+    <Content Include="img\ico\favicon-calendar.ico" />
+    <Content Include="img\ico\favicon-ge.ico" />
+    <Content Include="img\ico\favicon-joomla.ico" />
+    <Content Include="img\ico\favicon-try.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
