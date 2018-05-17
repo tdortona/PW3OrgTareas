@@ -206,6 +206,7 @@
     <Content Include="Views\Tarea\Index.cshtml" />
     <Content Include="Views\Tarea\Crear.cshtml" />
     <Content Include="Views\Tarea\Detalle.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

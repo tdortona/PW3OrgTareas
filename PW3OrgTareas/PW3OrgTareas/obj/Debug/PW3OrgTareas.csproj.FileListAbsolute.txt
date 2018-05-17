@@ -62,6 +62,5 @@ C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTare
 C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\bin\Microsoft.AI.Web.xml
-C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\obj\Debug\PW3OrgTareas.csprojResolveAssemblyReference.cache
 C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\obj\Debug\PW3OrgTareas.dll
 C:\Users\tomasdo\Desktop\Programacion Web 3\PW3OrgTareas\PW3OrgTareas\PW3OrgTareas\obj\Debug\PW3OrgTareas.pdb

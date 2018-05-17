@@ -23,6 +23,12 @@ textarea {
     max-width: 280px;
 }
 
+/*.navbar {
+    background-color: #009588;
+    border-color: #009588;
+    color: black;
+}*/
+
 #myModalLabel {
     text-align: center;
 }
