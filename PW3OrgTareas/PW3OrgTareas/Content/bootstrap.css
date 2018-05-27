@@ -2059,7 +2059,7 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #333333;
+  color: #fff;  /* RSB */
   background-color: #ebebeb;
   border-color: #adadad;
 }
@@ -3271,16 +3271,16 @@ input[type="button"].btn-block {
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
-  color: #333333;
+  color: #fff;  /* RSB */
   white-space: nowrap;
 }
 
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  color: #ffffff;
-  text-decoration: none;
-  background-color: #428bca;
-}
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #00bead;  /* RSB */
+    }
 
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -4149,7 +4149,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 @media (min-width: 768px) {
-  .container > .navbar-header,
+  .container > .dropdown-toggle,
   .container > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
@@ -4385,16 +4385,16 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-default {
   background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  border-color: #009588;
 }
 
 .navbar-default .navbar-brand {
-  color: #777777;
+  color: #fff;  /* RSB */
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #fff;  /* RSB */
   background-color: transparent;
 }
 
@@ -4403,19 +4403,19 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #777777;
+  color: #fff;  /* RSB */
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333333;
+  color: #fff;  /* RSB */
   background-color: transparent;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #555555;
+  color: #fff;  /* RSB */
   background-color: #e7e7e7;
 }
 
@@ -4506,7 +4506,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #fff;  /* RSB */
 }
 
 .navbar-inverse .navbar-brand:hover,
