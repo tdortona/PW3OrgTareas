@@ -1,10 +1,10 @@
-﻿@model List<PW3OrgTareas.Models.Carpeta>
+﻿@model List<PW3OrgTareas.Models.Tarea>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Mis Carpetas</h2>
+<h2>Tareas en @ViewBag.NombreCarpeta</h2>
 
 <div class="table-responsive">
     <table class="table">
@@ -13,6 +13,8 @@
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Fecha de Creacion</th>
+                <th>Fecha de Fin</th>
+                <th>Estimado (hs)</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -23,8 +25,10 @@
                     <td>@item.Nombre</td>
                     <td>@item.Descripcion</td>
                     <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                    <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+                    <td>@item.EstimadoHoras</td>
                     <td>
-                        <a href="/Tarea/TareasEnCarpeta/@item.IdCarpeta" title="Ver Tareas"><i class="fa fa-folder-open"></i></a> | 
+                        <a href="" title="Ver Detalle"><i class="fa fa-tasks"></i></a> | 
                         <a href="" title=""><i class="fa fa-trash-o"></i></a>
                     </td>
                 </tr>

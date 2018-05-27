@@ -18,7 +18,7 @@ namespace PW3OrgTareas.Models
 
         public int Prioridad { get; set; }
 
-        public Carpeta Carpeta { get; set; }
+        public int IdCarpeta { get; set; }
 
         public decimal EstimadoHoras { get; set; }
 
