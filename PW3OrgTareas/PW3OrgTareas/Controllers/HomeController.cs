@@ -20,7 +20,7 @@ namespace PW3OrgTareas.Controllers
 
         public ActionResult Logout()
         {
-            return View();
+            return View(viewName: "Index");
         }
 
         public ActionResult Registro()
