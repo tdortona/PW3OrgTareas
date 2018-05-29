@@ -176,6 +176,8 @@
     <Content Include="img\ico\favicon-ge.ico" />
     <Content Include="img\ico\favicon-joomla.ico" />
     <Content Include="img\ico\favicon-try.ico" />
+    <Content Include="img\ico\iconoToten.ico" />
+    <Content Include="img\logo\totenLogo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
