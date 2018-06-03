@@ -10,27 +10,28 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Fecha de Creacion</th>
                 <th>Fecha de Fin</th>
+                <th>Nombre</th>
+                <th>Prioridad</th>
+                <th>Carpeta</th>
                 <th>Estimado (hs)</th>
-                <th>Acciones</th>
+                <th>Completada</th>
+                <th>Detalle</th>
+                <th>Completar</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Nombre</td>
-                    <td>@item.Descripcion</td>
-                    <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
                     <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Prioridad</td>
+                    <td>@ViewBag.NombreCarpeta</td>      
                     <td>@item.EstimadoHoras</td>
-                    <td>
-                        <a href="" title="Ver Detalle"><i class="fa fa-tasks"></i></a> |
-                        <a href="" title=""><i class="fa fa-trash-o"></i></a>
-                    </td>
+                    <td>@item.Completada</td>
+                    <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
+                    <td><input type="checkbox" id="chkCompletar" /></td>
                 </tr>
             }
         </tbody>
