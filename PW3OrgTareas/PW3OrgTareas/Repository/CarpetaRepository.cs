@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using PW3OrgTareas.Models;
 
 namespace PW3OrgTareas.Repository
 {
@@ -32,9 +30,11 @@ namespace PW3OrgTareas.Repository
                 Descripcion = "Esta es la tercera carpeta de prueba",
                 FechaCreacion = DateTime.Today,
                 IdCarpeta = 3,
-                IdUsuario = 1
+                IdUsuario = 2
             }
         };
+
+        private readonly TotenEntities ctx = new TotenEntities();
 
         public List<Carpeta> ListarCarpetas()
         {
@@ -43,15 +43,15 @@ namespace PW3OrgTareas.Repository
 
         public List<Carpeta> GetCarpetasByUsuario(int idUsuario)
         {
-            return carpetasList.Where(x => x.IdUsuario == idUsuario).OrderBy(x => x.Nombre).ToList();
+            return ctx.Carpeta.Where(x => x.IdUsuario == idUsuario).OrderBy(x => x.Nombre).ToList();
         }
 
         public void AgregarCarpeta(Carpeta carpetaNueva)
         {
-            if (!carpetasList.Any(x => x == carpetaNueva))
-            {
-                carpetasList.Add(carpetaNueva);
-            }
+            carpetaNueva.IdUsuario = 1;
+            carpetaNueva.FechaCreacion = DateTime.Now;
+            ctx.Carpeta.Add(carpetaNueva);
+            ctx.SaveChanges();
         }
 
         public Carpeta GetCarpetaById(int idCarpeta)

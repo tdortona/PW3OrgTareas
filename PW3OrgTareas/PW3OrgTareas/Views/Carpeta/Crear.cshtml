@@ -1,8 +1,31 @@
-﻿
-@{
-    ViewBag.Title = "Crear";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear</h2>
-
+<form action="/Carpeta/Crear" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <div>
+                    <b>Nombre</b>
+                </div>
+                <div>
+                    <input type="text" placeholder="Ingresa el nombre de la carpeta" name="Nombre" maxlength="50" required />
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div>
+                    <b>Descripcion</b>
+                </div>
+                <div>
+                    <textarea placeholder="Ingresa la descripcion de la carpeta" name="Descripcion" maxlength="200" class="totenTextArea"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="btn-success-container">
+                <button type="submit" class="btn btn-success btn-block">Crear Carpeta</button>
+            </div>
+        </div>
+    </div>
+</form>

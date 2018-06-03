@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using PW3OrgTareas.Enums;
-using PW3OrgTareas.Models;
 
 namespace PW3OrgTareas.Repository
 {
@@ -47,10 +45,12 @@ namespace PW3OrgTareas.Repository
                 IdCarpeta = 1,
                 Prioridad = (int)PrioridadEnum.Baja,
                 IdTarea = 3,
-                IdUsuario = 1,
+                IdUsuario = 2,
                 Completada = 0
             }
         };
+
+        private readonly TotenEntities ctx = new TotenEntities();
 
         public List<Tarea> ListarTareas()
         {
@@ -59,7 +59,12 @@ namespace PW3OrgTareas.Repository
 
         public List<Tarea> GetTareasByUsuario(int idUsuario)
         {
-            return tareasList.Where(x => x.IdUsuario == idUsuario).ToList();
+            return ctx.Tarea.Where(x => x.IdUsuario == idUsuario).OrderByDescending(x => x.FechaCreacion).ToList();
+        }
+
+        public List<Tarea> GetTareasNoCompletadasByUsuario(int idUsuario)
+        {
+            return tareasList.Where(x => x.IdUsuario == idUsuario && x.Completada != 1).OrderBy(x => x.Prioridad).ThenBy(x => x.FechaFin).ToList();
         }
 
         public List<Tarea> GetTareasByCarpeta(int idCarpeta)
@@ -69,10 +74,11 @@ namespace PW3OrgTareas.Repository
 
         public void AgregarTarea(Tarea tareaNueva)
         {
-            if (!tareasList.Any(x => x == tareaNueva))
-            {
-                tareasList.Add(tareaNueva);
-            }
+            tareaNueva.IdUsuario = 1;
+            tareaNueva.Completada = 0;
+            tareaNueva.FechaCreacion = DateTime.Now;
+            ctx.Tarea.Add(tareaNueva);
+            ctx.SaveChanges();
         }
 
         public Tarea GetTareaById(int idTarea)

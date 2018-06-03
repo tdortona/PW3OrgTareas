@@ -1,4 +1,4 @@
-﻿@model List<PW3OrgTareas.Models.Tarea>
+﻿@model List<PW3OrgTareas.Tarea>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -24,7 +24,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+                    <td>@item.FechaFin.Value.ToString("dd/MM/yyyy")</td>
                     <td>@item.Nombre</td>
                     <td>@item.Prioridad</td>
                     <td>@ViewBag.NombreCarpeta</td>      

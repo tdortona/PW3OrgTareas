@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using PW3OrgTareas.Service;
 
 namespace PW3OrgTareas.Controllers
@@ -15,12 +11,24 @@ namespace PW3OrgTareas.Controllers
         // GET: Tarea
         public ActionResult Index()
         {
-            return View();
+            var model = _tareaService.GetTareasByUsuario(1);
+
+            return View(model);
         }
 
         public ActionResult Crear()
         {
+            ViewBag.CarpetasUsuario = _carpetaService.GetCarpetasByUsuario(1);
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Crear(Tarea tareaNueva)
+        {
+            _tareaService.AgregarTarea(tareaNueva);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Detalle(int idTarea)

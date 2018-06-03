@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PW3OrgTareas.Models;
+﻿using System.Collections.Generic;
 using PW3OrgTareas.Repository;
 
 namespace PW3OrgTareas.Service
@@ -19,6 +15,11 @@ namespace PW3OrgTareas.Service
         public List<Tarea> GetTareasByUsuario(int idUsuario)
         {
             return _tareaRepository.GetTareasByUsuario(idUsuario);
+        }
+
+        public List<Tarea> GetTareasNoCompletadasByUsuario(int idUsuario)
+        {
+            return _tareaRepository.GetTareasNoCompletadasByUsuario(idUsuario);
         }
 
         public List<Tarea> GetTareasByCarpeta(int idCarpeta)

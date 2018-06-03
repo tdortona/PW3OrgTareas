@@ -23,6 +23,16 @@ namespace PW3OrgTareas.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Crear(Carpeta carpeta)
+        {
+            if (carpeta != null)
+            {
+                _carpetaService.AgregarCarpeta(carpeta);
+            }
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Tareas(int idCarpeta)
         {
             return View();

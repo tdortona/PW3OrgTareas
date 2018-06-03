@@ -1,8 +1,39 @@
-﻿
+﻿@model List<PW3OrgTareas.Tarea>
+
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Mis tareas</h2>
 
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha de Fin</th>
+                <th>Nombre</th>
+                <th>Prioridad</th>
+                <th>Carpeta</th>
+                <th>Estimado (hs)</th>
+                <th>Completada</th>
+                <th>Detalle</th>
+                <th>Completar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FechaFin.Value.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Prioridad</td>
+                    <td>@ViewBag.NombreCarpeta</td>      
+                    <td>@item.EstimadoHoras</td>
+                    <td>@item.Completada</td>
+                    <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
+                    <td><input type="checkbox" id="chkCompletar" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

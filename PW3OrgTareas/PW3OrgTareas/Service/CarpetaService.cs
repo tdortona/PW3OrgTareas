@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PW3OrgTareas.Models;
+﻿using System.Collections.Generic;
 using PW3OrgTareas.Repository;
 
 namespace PW3OrgTareas.Service
