@@ -1,55 +1,67 @@
-﻿<form action="action_page.php">
-    <div class="container">
-        <h1>Registro</h1>
-        <p>Por favor, complet&aacute; este formulario para crear tu cuenta.</p>
-        <hr>
-        <div>
-            <div>
-                <label for="nombre"><b>Nombre</b></label>
-            </div>
-            <div>
-                <input type="text" placeholder="Ingresa tu nombre" name="nombre" required>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label for="apellido"><b>Apellido</b></label>
-            </div>
-            <div>
-                <input type="text" placeholder="Ingresa tu apellido" name="apellido" required>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label for="email"><b>Email</b></label>
-            </div>
-            <div>
-                <input type="text" placeholder="Ingresa tu Email" name="email" required>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label for="psw"><b>Password</b></label>
-            </div>
-            <div>
-                <input type="password" placeholder="Ingresa tu Password" name="psw" required>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label for="psw-repeat"><b>Confirmar Password</b></label>
-            </div>
-            <div>
-                <input type="password" placeholder="Confirma tu Password" name="psw-repeat" required>
-            </div>
-        </div>
-        <hr>
-        <div class="btn-success-container">
-            <button type="submit" class="btn btn-success btn-block">Registrate</button>
-        </div>
-    </div>
+﻿@model PW3OrgTareas.Usuario
 
-    <div class="container signin">
-        <p>¿Ya ten&eacute;s una cuenta? <a href="/Home/Login">¡Logueate!</a>.</p>
+<h1>Registro</h1>
+<br />
+<p>Por favor, complet&aacute; este formulario para crear tu cuenta.</p>
+<div class="jumbotron">
+    <div class="panel-body">
+        <div class="col-md-9 col-md-offset-3">
+            @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, "Repetir Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Crear" class="btn btn-success btn-block" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</form>
+</div>
+<div class="container signin">
+    <p>¿Ya ten&eacute;s una cuenta? <a href="/Home/Login">¡Logueate!</a>.</p>
+</div>

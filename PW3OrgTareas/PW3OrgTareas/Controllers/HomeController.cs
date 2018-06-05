@@ -11,14 +11,21 @@ namespace PW3OrgTareas.Controllers
     {
         private readonly TareaService _tareaService = new TareaService();
         private readonly CarpetaService _carpetaService = new CarpetaService();
+        private readonly UsuarioService _usuarioService = new UsuarioService();
 
         public ActionResult Index()
         {
-            var model = this._tareaService.GetTareasNoCompletadasByUsuario(1);
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                var model = this._tareaService.GetTareasNoCompletadasByUsuario(usuarioLogueado.IdUsuario);
 
-            ViewBag.CarpetasUsuario = _carpetaService.GetCarpetasByUsuario(1);
+                ViewBag.CarpetasUsuario = _carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario);
 
-            return View(model);
+                return View(model);
+            }
+
+            return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Login()
@@ -26,14 +33,41 @@ namespace PW3OrgTareas.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(Usuario u)
+        {
+            var user = _usuarioService.VerificarExistenciaUsuario(u);
+            var isValid = ModelState.IsValid;
+
+            if (isValid)
+            {
+                if (user != null)
+                {
+                    Session["Usuario"] = user;
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View();
+        }
+
         public ActionResult Logout()
         {
-            return View("Index");
+            Session.Clear();
+
+            return RedirectToAction("Login");
         }
 
         public ActionResult Registro()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registro(Usuario newUser)
+        {
+            _usuarioService.RegistrarUsuario(newUser);
+            return RedirectToAction("Login");
         }
     }
 }

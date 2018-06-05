@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@{ Usuario user = Session["Usuario"] as Usuario; }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,7 +8,6 @@
     <link rel="icon" href="~/img/ico/iconoToten.ico">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @*<link href="../Content/layout.css" rel="stylesheet" type="text/css">*@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
@@ -41,8 +41,12 @@
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Home/Registro"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    @*<li><a href="/Home/Registro"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>*@
+                    @if (user != null)
+                    {
+                        <li><a>¡Hola, @user.Nombre!</a></li>
+                    }
                     <li><a href="/Home/Logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>

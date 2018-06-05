@@ -1,6 +1,14 @@
 ﻿@model List<Tarea>
+@{ Usuario user = Session["Usuario"] as Usuario; }
 
-<h2>Hola, TotenUser. Bienvenido a ¡Toten!</h2>
+@if (user != null)
+{
+    <h2>Hola, @user.Nombre. Bienvenido/a a ¡Toten!</h2>
+}
+else
+{
+    <h2>Bienvenido/a a ¡Toten!</h2>
+}
 
 <div class="container">
     <div class="row">
