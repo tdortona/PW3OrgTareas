@@ -9,13 +9,18 @@ namespace PW3OrgTareas.Controllers
 {
     public class CarpetaController : Controller
     {
-        private int idUsuario = 1;
-        private readonly CarpetaService _carpetaService = new CarpetaService();
+        private readonly CarpetaService carpetaService = new CarpetaService();
 
         // GET: Carpeta
         public ActionResult Index()
         {
-            return View(_carpetaService.GetCarpetasByUsuario(idUsuario));
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                return View(carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario));
+            }
+            
+            return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Crear()
@@ -26,11 +31,23 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Crear(Carpeta carpeta)
         {
-            if (carpeta != null)
+            var isValid = ModelState.IsValid;
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+
+            if (isValid)
             {
-                _carpetaService.AgregarCarpeta(carpeta);
+                if (usuarioLogueado != null)
+                {
+                    carpetaService.AgregarCarpeta(carpeta, usuarioLogueado.IdUsuario);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
             }
-            return RedirectToAction("Index");
+
+            return View();
         }
 
         public ActionResult Tareas(int idCarpeta)

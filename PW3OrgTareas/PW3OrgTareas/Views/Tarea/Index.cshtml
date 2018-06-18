@@ -1,5 +1,5 @@
 ﻿@model List<PW3OrgTareas.Tarea>
-
+@using PW3OrgTareas.Enums
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -24,10 +24,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.FechaFin.Value.ToString("dd/MM/yyyy")</td>
+                    <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                     <td>@item.Nombre</td>
-                    <td>@item.Prioridad</td>
-                    <td>@ViewBag.NombreCarpeta</td>      
+                    <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
+                    <td>@item.NombreCarpeta</td>      
                     <td>@item.EstimadoHoras</td>
                     <td>@item.Completada</td>
                     <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>

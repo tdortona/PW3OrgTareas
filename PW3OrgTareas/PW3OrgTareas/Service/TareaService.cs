@@ -27,9 +27,9 @@ namespace PW3OrgTareas.Service
             return _tareaRepository.GetTareasByCarpeta(idCarpeta);
         }
 
-        public void AgregarTarea(Tarea tareaNueva)
+        public void AgregarTarea(Tarea tareaNueva, int idUsuario)
         {
-            _tareaRepository.AgregarTarea(tareaNueva);
+            _tareaRepository.AgregarTarea(tareaNueva, idUsuario);
         }
 
         public Tarea GetTareaById(int idTarea)

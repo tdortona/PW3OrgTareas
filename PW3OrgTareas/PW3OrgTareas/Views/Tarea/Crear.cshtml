@@ -1,78 +1,95 @@
-﻿@{
+﻿@model PW3OrgTareas.Tarea
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear</h2>
+<h1>Nueva Tarea</h1>
+<br />
+<div class="jumbotron">
+    <div class="panel-body">
+        <div class="col-md-9 col-md-offset-3">
+            @using (Html.BeginForm("Crear", "Tarea", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
-<form action="/Tarea/Crear" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Nombre</b>
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.Descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.EstimadoHoras, "Estimado (hs)", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EstimadoHoras, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EstimadoHoras, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.FechaFin, "Fecha de Fin", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.Prioridad, "Prioridad", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            <select name="Prioridad" id="Prioridad" class="form-control">
+                                @foreach (var item in (List<SelectListItem>)ViewBag.ListaPrioridad)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.LabelFor(model => model.IdCarpeta, "Carpeta", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
+                        </div>
+                        <div class="col-md-10">
+                            <select name="IdCarpeta" id="IdCarpeta" class="form-control">
+                                @foreach (var item in (List<SelectListItem>)ViewBag.CarpetasUsuario)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Crear" class="btn btn-success btn-block" />
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <input type="text" placeholder="Ingresa el nombre de la tarea" name="Nombre" maxlength="50" required />
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Descripcion</b>
-                </div>
-                <div>
-                    <textarea placeholder="Ingresa la descripcion de la tarea" name="Descripcion" maxlength="200" class="totenTextArea"></textarea>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Estimado (hs)</b>
-                </div>
-                <div>
-                    @* Validar solo 2 decimales *@
-                    <input type="text" placeholder="Ingresa el nombre de la tarea" name="EstimadoHoras" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Fecha Fin</b>
-                </div>
-                <div>
-                    <input type="text" placeholder="" name="FechaFin" />
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Prioridad</b>
-                </div>
-                <div>
-                    <select name="Prioridad">
-                        <option value="0">Baja</option>
-                        <option value="1">Media</option>
-                        <option value="2">Alta</option>
-                        <option value="3">Urgente</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 col-md-3">
-                <div>
-                    <b>Carpeta</b>
-                </div>
-                <div>
-                    <select name="IdCarpeta">
-                        @foreach(Carpeta item in ViewBag.CarpetasUsuario)
-                        {
-                            <option value="@item.IdCarpeta">@item.Nombre</option>
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="btn-success-container">
-                <button type="submit" class="btn btn-success btn-block">Crear Tarea</button>
-            </div>
+            }
         </div>
     </div>
-</form>
+</div>

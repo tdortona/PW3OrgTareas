@@ -257,3 +257,7 @@ hr {
 .totenTextArea {
     width: 100%;
 }
+
+.labelForm {
+    padding-left: 0px;
+}

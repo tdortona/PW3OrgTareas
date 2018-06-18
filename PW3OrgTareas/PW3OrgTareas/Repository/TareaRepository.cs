@@ -29,9 +29,10 @@ namespace PW3OrgTareas.Repository
             return ctx.Tarea.Where(x => x.IdCarpeta == idCarpeta).ToList();
         }
 
-        public void AgregarTarea(Tarea tareaNueva)
+        public void AgregarTarea(Tarea tareaNueva, int idUsuario)
         {
-            tareaNueva.IdUsuario = 1;
+            tareaNueva.IdCarpeta = tareaNueva.IdCarpeta;
+            tareaNueva.IdUsuario = idUsuario;
             tareaNueva.Completada = 0;
             tareaNueva.FechaCreacion = DateTime.Now;
             ctx.Tarea.Add(tareaNueva);

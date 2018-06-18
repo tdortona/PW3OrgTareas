@@ -18,6 +18,10 @@ namespace PW3OrgTareas.Repository
 
         public void RegistrarUsuario(Usuario u)
         {
+            u.Activo = 1;
+            u.CodigoActivacion = "4AE52B1C-C3E2-4AB1-8EFD-859FCB87F5B6";
+            u.FechaActivacion = DateTime.Now;
+            u.FechaRegistracion = DateTime.Now;
             ctx.Usuario.Add(u);
             ctx.SaveChanges();
         }

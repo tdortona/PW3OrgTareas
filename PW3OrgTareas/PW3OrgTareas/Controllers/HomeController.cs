@@ -9,23 +9,29 @@ namespace PW3OrgTareas.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TareaService _tareaService = new TareaService();
-        private readonly CarpetaService _carpetaService = new CarpetaService();
-        private readonly UsuarioService _usuarioService = new UsuarioService();
+        private readonly TareaService tareaService = new TareaService();
+        private readonly CarpetaService carpetaService = new CarpetaService();
+        private readonly UsuarioService usuarioService = new UsuarioService();
 
         public ActionResult Index()
         {
             var usuarioLogueado = Session["Usuario"] as Usuario;
             if (usuarioLogueado != null)
             {
-                var model = this._tareaService.GetTareasNoCompletadasByUsuario(usuarioLogueado.IdUsuario);
+                var model = this.tareaService.GetTareasNoCompletadasByUsuario(usuarioLogueado.IdUsuario);
 
-                ViewBag.CarpetasUsuario = _carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario);
+                ViewBag.CarpetasUsuario = carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario);
+
+                foreach (var item in model)
+                {
+                    Carpeta carpetaDeLaTarea = carpetaService.GetCarpetaById(item.IdCarpeta);
+                    item.NombreCarpeta = carpetaDeLaTarea != null ? carpetaDeLaTarea.Nombre : string.Empty;
+                }
 
                 return View(model);
             }
 
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login()
@@ -36,16 +42,12 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Login(Usuario u)
         {
-            var user = _usuarioService.VerificarExistenciaUsuario(u);
-            var isValid = ModelState.IsValid;
-
-            if (isValid)
+            var user = usuarioService.VerificarExistenciaUsuario(u);
+            
+            if (user != null)
             {
-                if (user != null)
-                {
-                    Session["Usuario"] = user;
-                    return RedirectToAction("Index", "Home");
-                }
+                Session["Usuario"] = user;
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -66,8 +68,15 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Registro(Usuario newUser)
         {
-            _usuarioService.RegistrarUsuario(newUser);
-            return RedirectToAction("Login");
+            var isValid = ModelState.IsValid;
+
+            if (isValid)
+            {
+                usuarioService.RegistrarUsuario(newUser);
+                return RedirectToAction("Login");
+            }
+            
+            return View();
         }
     }
 }

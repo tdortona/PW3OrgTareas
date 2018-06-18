@@ -1,34 +1,109 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using PW3OrgTareas.Enums;
 using PW3OrgTareas.Service;
 
 namespace PW3OrgTareas.Controllers
 {
     public class TareaController : Controller
     {
-        private readonly TareaService _tareaService = new TareaService();
-        private readonly CarpetaService _carpetaService = new CarpetaService();
+        private readonly TareaService tareaService = new TareaService();
+        private readonly CarpetaService carpetaService = new CarpetaService();
 
         // GET: Tarea
         public ActionResult Index()
         {
-            var model = _tareaService.GetTareasByUsuario(1);
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                var model = tareaService.GetTareasByUsuario(usuarioLogueado.IdUsuario);
 
-            return View(model);
+                return View(model);
+            }
+            
+            return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Crear()
         {
-            ViewBag.CarpetasUsuario = _carpetaService.GetCarpetasByUsuario(1);
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                List<SelectListItem> listaPrioridad = new List<SelectListItem>();
+                List<SelectListItem> listaCarpetas = new List<SelectListItem>();
 
-            return View();
+                foreach (var item in Enum.GetValues(typeof(PrioridadEnum)))
+                {
+                    listaPrioridad.Add(new SelectListItem
+                    {
+                        Value = item.GetHashCode().ToString(),
+                        Text = item.ToString()
+                    });
+                }
+
+                foreach (var item in carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario))
+                {
+                    listaCarpetas.Add(new SelectListItem
+                    {
+                        Value = item.IdCarpeta.ToString(),
+                        Text = item.Nombre
+                    });
+                }
+
+                ViewBag.ListaPrioridad = listaPrioridad;
+                ViewBag.CarpetasUsuario = listaCarpetas;
+
+                return View();
+            }
+
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]
         public ActionResult Crear(Tarea tareaNueva)
         {
-            _tareaService.AgregarTarea(tareaNueva);
+            var isValid = ModelState.IsValid;
+            var usuarioLogueado = Session["Usuario"] as Usuario;
 
-            return RedirectToAction("Index");
+            if (isValid)
+            {
+                if (usuarioLogueado != null)
+                {
+                    tareaService.AgregarTarea(tareaNueva, usuarioLogueado.IdUsuario);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+
+            List<SelectListItem> listaPrioridad = new List<SelectListItem>();
+            List<SelectListItem> listaCarpetas = new List<SelectListItem>();
+
+            foreach (var item in Enum.GetValues(typeof(PrioridadEnum)))
+            {
+                listaPrioridad.Add(new SelectListItem
+                {
+                    Value = item.GetHashCode().ToString(),
+                    Text = item.ToString()
+                });
+            }
+
+            foreach (var item in carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario))
+            {
+                listaCarpetas.Add(new SelectListItem
+                {
+                    Value = item.IdCarpeta.ToString(),
+                    Text = item.Nombre
+                });
+            }
+
+            ViewBag.ListaPrioridad = listaPrioridad;
+            ViewBag.CarpetasUsuario = listaCarpetas;
+
+            return View();
         }
 
         public ActionResult Detalle(int idTarea)
@@ -38,9 +113,9 @@ namespace PW3OrgTareas.Controllers
 
         public ActionResult TareasEnCarpeta(int id)
         {
-            ViewBag.NombreCarpeta = _carpetaService.GetCarpetaById(id).Nombre;
+            ViewBag.NombreCarpeta = carpetaService.GetCarpetaById(id).Nombre;
 
-            return View(_tareaService.GetTareasByCarpeta(id));
+            return View(tareaService.GetTareasByCarpeta(id));
         }
     }
 }

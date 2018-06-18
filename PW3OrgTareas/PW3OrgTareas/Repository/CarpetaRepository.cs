@@ -18,9 +18,9 @@ namespace PW3OrgTareas.Repository
             return ctx.Carpeta.Where(x => x.IdUsuario == idUsuario).OrderBy(x => x.Nombre).ToList();
         }
 
-        public void AgregarCarpeta(Carpeta carpetaNueva)
+        public void AgregarCarpeta(Carpeta carpetaNueva, int idUsuario)
         {
-            carpetaNueva.IdUsuario = 1;
+            carpetaNueva.IdUsuario = idUsuario;
             carpetaNueva.FechaCreacion = DateTime.Now;
             ctx.Carpeta.Add(carpetaNueva);
             ctx.SaveChanges();

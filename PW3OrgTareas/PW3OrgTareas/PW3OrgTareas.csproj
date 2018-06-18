@@ -167,6 +167,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\Carpeta\CarpetaMetaData.cs" />
+    <Compile Include="Metadata\Tarea\TareaMetaData.cs" />
+    <Compile Include="Metadata\Usuario\UsuarioMetaData.cs" />
+    <Compile Include="Models\PrioridadListModel.cs" />
+    <Compile Include="PartialClass\Carpeta\Carpeta.cs" />
+    <Compile Include="PartialClass\Tarea\Tarea.cs" />
+    <Compile Include="PartialClass\Usuario\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CarpetaRepository.cs" />
     <Compile Include="Repository\TareaRepository.cs" />
@@ -271,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
