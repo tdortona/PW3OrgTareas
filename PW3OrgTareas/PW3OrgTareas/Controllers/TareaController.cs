@@ -32,7 +32,7 @@ namespace PW3OrgTareas.Controllers
 
 
 
-            
+
             return RedirectToAction("Login", "Home");
         }
 
@@ -135,14 +135,32 @@ namespace PW3OrgTareas.Controllers
 
         public ActionResult Detalle(int idTarea)
         {
-            return View();
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+
+            if (usuarioLogueado != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
         }
 
         public ActionResult TareasEnCarpeta(int id)
         {
-            ViewBag.NombreCarpeta = carpetaService.GetCarpetaById(id).Nombre;
+            var usuarioLogueado = Session["Usuario"] as Usuario;
 
-            return View(tareaService.GetTareasByCarpeta(id));
+            if (usuarioLogueado != null)
+            {
+                ViewBag.NombreCarpeta = carpetaService.GetCarpetaById(id).Nombre;
+                return View(tareaService.GetTareasByCarpeta(id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public void CompletarTarea(int idTarea)

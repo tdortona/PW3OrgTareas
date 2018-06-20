@@ -19,13 +19,23 @@ namespace PW3OrgTareas.Controllers
             {
                 return View(carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario));
             }
-            
+
             return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Crear()
         {
-            return View();
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+
+            if (usuarioLogueado != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
         }
 
         [HttpPost]
