@@ -42,7 +42,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     @*<li><a href="/Home/Registro"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>*@
+                        <li><a href="/Home/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>*@
                     @if (user != null)
                     {
                         <li><a>¡Hola, @user.Nombre!</a></li>
@@ -63,5 +63,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/Site.js"></script>
 </body>
 </html>
