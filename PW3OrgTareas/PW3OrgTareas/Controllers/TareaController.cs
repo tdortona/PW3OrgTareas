@@ -32,6 +32,7 @@ namespace PW3OrgTareas.Controllers
             {
                 List<SelectListItem> listaPrioridad = new List<SelectListItem>();
                 List<SelectListItem> listaCarpetas = new List<SelectListItem>();
+                Carpeta carpetaGeneral = new Carpeta();
 
                 foreach (var item in Enum.GetValues(typeof(PrioridadEnum)))
                 {
@@ -50,6 +51,13 @@ namespace PW3OrgTareas.Controllers
                         Text = item.Nombre
                     });
                 }
+
+                carpetaGeneral = carpetaService.GetCarpetaById(1);  // Obtengo la carpeta general
+                listaCarpetas.Insert(0, new SelectListItem
+                {
+                    Value = carpetaGeneral.IdCarpeta.ToString(),
+                    Text = carpetaGeneral.Nombre
+                });
 
                 ViewBag.ListaPrioridad = listaPrioridad;
                 ViewBag.CarpetasUsuario = listaCarpetas;
@@ -81,6 +89,7 @@ namespace PW3OrgTareas.Controllers
 
             List<SelectListItem> listaPrioridad = new List<SelectListItem>();
             List<SelectListItem> listaCarpetas = new List<SelectListItem>();
+            Carpeta carpetaGeneral = new Carpeta();
 
             foreach (var item in Enum.GetValues(typeof(PrioridadEnum)))
             {
@@ -100,6 +109,13 @@ namespace PW3OrgTareas.Controllers
                 });
             }
 
+            carpetaGeneral = carpetaService.GetCarpetaById(1);  // Obtengo la carpeta general
+            listaCarpetas.Insert(0, new SelectListItem
+            {
+                Value = carpetaGeneral.IdCarpeta.ToString(),
+                Text = carpetaGeneral.Nombre
+            });
+
             ViewBag.ListaPrioridad = listaPrioridad;
             ViewBag.CarpetasUsuario = listaCarpetas;
 
@@ -116,6 +132,12 @@ namespace PW3OrgTareas.Controllers
             ViewBag.NombreCarpeta = carpetaService.GetCarpetaById(id).Nombre;
 
             return View(tareaService.GetTareasByCarpeta(id));
+        }
+
+        public void CompletarTarea(int idTarea)
+        {
+            Tarea tareaACompletar = tareaService.GetTareaById(idTarea);
+            tareaService.CompletarTarea(tareaACompletar);
         }
     }
 }

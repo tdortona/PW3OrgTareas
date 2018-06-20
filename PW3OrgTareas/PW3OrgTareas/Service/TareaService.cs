@@ -41,5 +41,10 @@ namespace PW3OrgTareas.Service
         {
             _tareaRepository.EliminarTarea(idTarea);
         }
+
+        public void CompletarTarea(Tarea tareaACompletar)
+        {
+            _tareaRepository.CompletarTarea(tareaACompletar);
+        }
     }
 }

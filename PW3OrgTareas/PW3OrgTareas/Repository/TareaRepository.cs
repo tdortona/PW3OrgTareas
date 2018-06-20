@@ -56,5 +56,11 @@ namespace PW3OrgTareas.Repository
                 ctx.SaveChanges();
             }
         }
+
+        public void CompletarTarea(Tarea tareaACompletar)
+        {
+            tareaACompletar.Completada = 1;
+            ctx.SaveChanges();
+        }
     }
 }
