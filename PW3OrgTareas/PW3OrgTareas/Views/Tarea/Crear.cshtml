@@ -50,7 +50,7 @@
                             @Html.LabelFor(model => model.FechaFin, "Fecha de Fin", htmlAttributes: new { @class = "control-label col-md-2 labelForm" })
                         </div>
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", id="datepicker" } })
+                            @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
                         </div>
                     </div>
