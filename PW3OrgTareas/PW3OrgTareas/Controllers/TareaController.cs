@@ -19,8 +19,19 @@ namespace PW3OrgTareas.Controllers
             {
                 var model = tareaService.GetTareasByUsuario(usuarioLogueado.IdUsuario);
 
+                ViewBag.CarpetasUsuario = carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario);
+
+                foreach (var item in model)
+                {
+                    Carpeta carpetaDeLaTarea = carpetaService.GetCarpetaById(item.IdCarpeta);
+                    item.NombreCarpeta = carpetaDeLaTarea != null ? carpetaDeLaTarea.Nombre : string.Empty;
+                }
+
                 return View(model);
             }
+
+
+
             
             return RedirectToAction("Login", "Home");
         }
