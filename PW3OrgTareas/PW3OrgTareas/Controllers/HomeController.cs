@@ -65,9 +65,6 @@ namespace PW3OrgTareas.Controllers
                     ViewBag.MensajeDeError = "Su usuario se encuentra inactivo";
                     return View();
                 }
-
-
-                return RedirectToAction("Index", "Home");
             }
             else
             {
