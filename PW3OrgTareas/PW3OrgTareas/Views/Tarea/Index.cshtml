@@ -5,7 +5,18 @@
 }
 
 <h2>Mis tareas</h2>
-
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-3">
+            Ocultar completadas: <input type="checkbox" onchange="ocultarCompletadas(this)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3">
+            Ocultar NO completadas: <input type="checkbox" onchange="ocultarNoCompletadas(this)" />
+        </div>
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -20,11 +31,11 @@
                 <th>Completar</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="misTareas">
             @foreach (var item in Model)
             {
                 bool isComplete = item.Completada == 1;
-                <tr>
+                <tr data-completada="@isComplete">
                     <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                     <td>@item.Nombre</td>
                     <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
@@ -40,7 +51,7 @@
                             @:No
                         }
                     </td>
-                    <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
+                    <td><a href="/Tarea/Detalle/@item.IdTarea" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
                     <td><input type="checkbox" id="chkCompletar" disabled="@isComplete" checked="@isComplete" onchange="completarTarea(this, @item.IdTarea)" /></td>
                 </tr>
             }
