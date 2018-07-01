@@ -46,11 +46,22 @@ namespace PW3OrgTareas.Controllers
             
             if (user != null)
             {
-                Session["Usuario"] = user;
-                return RedirectToAction("Index", "Home");
+                if (user.Activo != 0)
+                {
+                    Session["Usuario"] = user;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.MensajeDeError = "Su usuario se encuentra inactivo";
+                    return View();
+                }
             }
-
-            return View();
+            else
+            {
+                ViewBag.mensajeDeError = "Verifique por favor su Usuario y/o Contraseña";
+                return View();
+            }
         }
 
         public ActionResult Logout()

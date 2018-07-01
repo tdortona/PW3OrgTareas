@@ -22,12 +22,12 @@
                                 <input type="Password" class="form-control" id="Password" name="Password" value="" required="" title="Ingresá tu contraseña">
                                 <span class="help-block"></span>
                             </div>
-                            <div id="loginErrorMsg" class="alert alert-error hide">Usuario o contrase&ntilde;a incorrectos</div>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="remember" id="remember"> ¡Recordame!
                                 </label>
                             </div>
+                            <div id="loginErrorMsg" class="alert alert-error text-danger text-center"><b>@ViewBag.MensajeDeError</b></div>
                             <button type="submit" class="btn btn-success btn-block">Login</button>
                         </form>
                     </div>
