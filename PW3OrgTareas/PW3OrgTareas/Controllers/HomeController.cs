@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json.Linq;
 using PW3OrgTareas.Service;
 
 namespace PW3OrgTareas.Controllers
@@ -31,7 +33,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View(model);
             }
-            
+
             return RedirectToAction("Login");
         }
 
@@ -43,8 +45,9 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Login(Usuario u)
         {
+
+
             var user = usuarioService.VerificarExistenciaUsuario(u);
-            
             if (user != null)
             {
                 if (user.Activo != 0)
@@ -71,6 +74,8 @@ namespace PW3OrgTareas.Controllers
                 ViewBag.mensajeDeError = "Verifique por favor su Usuario y/o Contraseña";
                 return View();
             }
+
+
         }
 
         public ActionResult Logout()
@@ -88,27 +93,51 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Registro(Usuario newUser)
         {
+            bool x = newUser.Password.Any(p => char.IsUpper(p));
+            bool y = newUser.Password.Any(p => char.IsLower(p));
+            bool z = newUser.Password.Any(p => char.IsDigit(p));
+
             var isValid = ModelState.IsValid;
 
-            if (isValid)
+            var response = Request["g-recaptcha-response"];
+            string secretKey = "6Ld3NWAUAAAAAJJ2Mco-UNBPCdXwIZwIeNs1r6fC";
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(result);
+            var status = (bool)obj.SelectToken("success");
+            ViewBag.Message = status ? "Google reCaptcha validation success" : "Google reCaptcha validation failed";
+
+            if (status == true)
             {
-                if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
+                if (isValid)
                 {
-                    if (usuarioService.VerificarUsuarioActivo(newUser))
+                    if (x && y && z)
                     {
+                        if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
+                        {
+                            if (usuarioService.VerificarUsuarioActivo(newUser))
+                            {
+                                newUser.CodigoActivacion = result;
+                                return RedirectToAction("Login");
+                            }
+                            else
+                            {
+                                ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
+                                return View(newUser);
+                            }
+                        }
+                        usuarioService.RegistrarUsuario(newUser);
                         return RedirectToAction("Login");
                     }
                     else
                     {
-                        ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
+                        ViewBag.mensajeDeErrorPassword = "La contraseña debe contener mayusculas, minusculas y numeros.";
                         return View(newUser);
                     }
                 }
-                usuarioService.RegistrarUsuario(newUser);
-                return RedirectToAction("Login");
             }
-            
-            return View();
+
+            return View(newUser);
         }
     }
 }
