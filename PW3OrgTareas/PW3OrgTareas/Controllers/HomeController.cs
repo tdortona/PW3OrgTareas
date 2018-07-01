@@ -81,6 +81,18 @@ namespace PW3OrgTareas.Controllers
 
             if (isValid)
             {
+                if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
+                {
+                    if (usuarioService.VerificarUsuarioActivo(newUser))
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
+                        return View(newUser);
+                    }
+                }
                 usuarioService.RegistrarUsuario(newUser);
                 return RedirectToAction("Login");
             }

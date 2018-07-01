@@ -16,6 +16,12 @@ namespace PW3OrgTareas.Repository
             return user;
         }
 
+        public Usuario BuscarUsuarioPorMail(string mail)
+        {
+            var usuarioBuscado = ctx.Usuario.Where(us => us.Email.Equals(mail)).FirstOrDefault();
+            return usuarioBuscado;
+        }
+
         public void RegistrarUsuario(Usuario u)
         {
             u.Activo = 1;
@@ -23,6 +29,17 @@ namespace PW3OrgTareas.Repository
             u.FechaActivacion = DateTime.Now;
             u.FechaRegistracion = DateTime.Now;
             ctx.Usuario.Add(u);
+            ctx.SaveChanges();
+        }
+
+        public void ModificarUsuario(Usuario u)
+        {
+            Usuario usuarioViejo = ctx.Usuario.Where(us => us.Email == u.Email).FirstOrDefault();
+            usuarioViejo.Nombre = u.Nombre;
+            usuarioViejo.Apellido = u.Apellido;
+            usuarioViejo.Password = u.Password;
+            usuarioViejo.RepetirPassword = u.Password;
+            usuarioViejo.Activo = u.Activo;
             ctx.SaveChanges();
         }
     }
