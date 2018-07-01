@@ -28,7 +28,7 @@
                     <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                     <td>@item.Nombre</td>
                     <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
-                    <td>@item.NombreCarpeta</td>      
+                    <td><a href="/Tarea/TareasEnCarpeta/@item.IdCarpeta">@item.NombreCarpeta</a></td>      
                     <td>@item.EstimadoHoras</td>
                     <td id="tdComplete_@item.IdTarea">
                         @if (isComplete)
