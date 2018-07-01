@@ -1,8 +1,101 @@
-﻿
+﻿@model PW3OrgTareas.Tarea
+@using PW3OrgTareas.Enums
+@{bool isComplete = Model.Completada == 1; }
 @{
-    ViewBag.Title = "Detalle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalle</h2>
+<h2>Detalle de Tarea - @Model.Nombre</h2>
 
+<div class="container">
+    <div class="row">
+        <b>Descripcion: </b>
+        <p>
+            @(string.IsNullOrWhiteSpace(Model.Descripcion) ? "-" : Model.Descripcion)
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3">
+            <div><b>Estimado (hs): </b></div>
+            <div>@(Model.EstimadoHoras.HasValue ? Model.EstimadoHoras.Value.ToString() : "-")</div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div><b>Fecha de Fin: </b></div>
+            <div>@(Model.FechaFin.HasValue ? Model.FechaFin.Value.ToString("dd/MM/yyyy") : "-")</div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div><b>Prioridad: </b></div>
+            <div>@Enum.GetName(typeof(PrioridadEnum), Model.Prioridad)</div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div><b>Completada: </b></div>
+            <div>
+                @if (isComplete)
+                {
+                    @:S&iacute;
+                }
+                else
+                {
+                    @:No
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <caption><b>Comentarios</b></caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texto</th>
+                <th>Fecha de creacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var com in Model.ComentarioTarea)
+            {
+                <tr>
+                    <td>@com.IdComentarioTarea</td>
+                    <td>@(string.IsNullOrWhiteSpace(com.Texto) ? "-" : com.Texto)</td>
+                    <td>@com.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="tdNuevo"><a href="/Tarea/NuevoComentario/@Model.IdTarea">Ingresar un nuevo comentario</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <caption><b>Archivos adjuntos</b></caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Link de descarga</th>
+                <th>Fecha de creacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ar in Model.ArchivoTarea)
+            {
+                string nombreReal = ar.RutaArchivo.Split('/')[4];
+                <tr>
+                    <td>@nombreReal</td>
+                    <td>@Html.ActionLink("Descargar", "DescargarArchivo", new { idTarea = ar.IdTarea, nombre = nombreReal })</td>
+                    <td>@ar.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="tdNuevo"><a href="/Tarea/AdjuntarArchivo/@Model.IdTarea">Subir un nuevo archivo adjunto</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

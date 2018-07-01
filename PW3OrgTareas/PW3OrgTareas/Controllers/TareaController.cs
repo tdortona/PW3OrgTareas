@@ -29,9 +29,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View(model);
             }
-
-
-
+            
             Session["RedireccionLogin"] = "Tarea/Index";
             return RedirectToAction("Login", "Home");
         }
@@ -75,6 +73,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View();
             }
+
             Session["RedireccionLogin"] = "Tarea/Crear";
             return RedirectToAction("Login", "Home");
         }
@@ -133,13 +132,15 @@ namespace PW3OrgTareas.Controllers
             return View();
         }
 
-        public ActionResult Detalle(int idTarea)
+        public ActionResult Detalle(int id)
         {
             var usuarioLogueado = Session["Usuario"] as Usuario;
 
             if (usuarioLogueado != null)
             {
-                return View();
+                Tarea model = tareaService.GetTareaByIdConComentariosYAdjuntos(id);
+
+                return View(model);
             }
             else
             {
@@ -169,6 +170,57 @@ namespace PW3OrgTareas.Controllers
         {
             Tarea tareaACompletar = tareaService.GetTareaById(idTarea);
             tareaService.CompletarTarea(tareaACompletar);
+        }
+
+        public ActionResult NuevoComentario(int id)
+        {
+            ComentarioTarea model = new ComentarioTarea()
+            {
+                IdTarea = id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult NuevoComentario(ComentarioTarea comentario)
+        {
+            tareaService.CrearComentario(comentario);
+            return RedirectToAction("Detalle", new { id = comentario.IdTarea });
+        }
+
+        public ActionResult AdjuntarArchivo(int id)
+        {
+            ArchivoTarea model = new ArchivoTarea()
+            {
+                IdTarea = id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AdjuntarArchivo(ArchivoTarea archivo)
+        {
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
+            {
+                archivo.RutaArchivo = tareaService.GuardarArchivo(Request.Files[0], Request.Files[0].FileName, archivo.IdTarea);
+                tareaService.AdjuntarArchivo(archivo);
+            }
+
+            return RedirectToAction("Detalle", new { id = archivo.IdTarea });
+        }
+
+        public ActionResult DescargarArchivo(int idTarea, string nombre)
+        {
+            string carpetaAdjuntos = System.Configuration.ConfigurationManager.AppSettings["CarpetaAdjuntos"];
+            carpetaAdjuntos = carpetaAdjuntos.Replace("{idTarea}", idTarea.ToString());
+            carpetaAdjuntos = string.Format("/{0}/", carpetaAdjuntos.TrimStart('/').TrimEnd('/'));
+            string pathDestino = System.Web.Hosting.HostingEnvironment.MapPath("~") + carpetaAdjuntos;
+
+            string path = pathDestino;
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path + nombre);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, nombre);
         }
     }
 }

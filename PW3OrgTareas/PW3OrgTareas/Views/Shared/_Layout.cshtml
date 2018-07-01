@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOTEN</title>
     <link rel="icon" href="~/img/ico/iconoToten.ico">
-    @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("Toten", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
@@ -68,5 +67,6 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/Scripts/Site.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </body>
 </html>

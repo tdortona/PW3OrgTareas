@@ -277,6 +277,8 @@
     <Content Include="TotenModel.edmx.diagram">
       <DependentUpon>TotenModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Tarea\NuevoComentario.cshtml" />
+    <Content Include="Views\Tarea\AdjuntarArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
