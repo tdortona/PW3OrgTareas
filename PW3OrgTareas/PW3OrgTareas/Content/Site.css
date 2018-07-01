@@ -261,3 +261,11 @@ hr {
 .labelForm {
     padding-left: 0px;
 }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: black;
+}
+
+.dropdown-menu > li > a {
+    color: black;
+}
