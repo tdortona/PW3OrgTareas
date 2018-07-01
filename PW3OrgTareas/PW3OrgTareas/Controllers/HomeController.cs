@@ -43,34 +43,37 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Login(Usuario u)
         {
+
+
             var user = usuarioService.VerificarExistenciaUsuario(u);
-            
             if (user != null)
-            {
-                if (user.Activo != 0)
                 {
-                    Session["Usuario"] = user;
-                    if (Session["RedireccionLogin"] != null)
+                    if (user.Activo != 0)
                     {
-                        String accionSesion = (String)Session["RedireccionLogin"];
-                        String pattern = "/";
-                        String[] accion = Regex.Split(accionSesion, pattern);
-                        Session.Remove("RedireccionLogin");
-                        return RedirectToAction(accion[1], accion[0]);
+                        Session["Usuario"] = user;
+                        if (Session["RedireccionLogin"] != null)
+                        {
+                            String accionSesion = (String)Session["RedireccionLogin"];
+                            String pattern = "/";
+                            String[] accion = Regex.Split(accionSesion, pattern);
+                            Session.Remove("RedireccionLogin");
+                            return RedirectToAction(accion[1], accion[0]);
+                        }
+                        return RedirectToAction("Index", "Home");
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        ViewBag.MensajeDeError = "Su usuario se encuentra inactivo";
+                        return View();
+                    }
                 }
                 else
                 {
-                    ViewBag.MensajeDeError = "Su usuario se encuentra inactivo";
+                    ViewBag.mensajeDeError = "Verifique por favor su Usuario y/o Contraseña";
                     return View();
                 }
-            }
-            else
-            {
-                ViewBag.mensajeDeError = "Verifique por favor su Usuario y/o Contraseña";
-                return View();
-            }
+            
+
         }
 
         public ActionResult Logout()
@@ -88,24 +91,37 @@ namespace PW3OrgTareas.Controllers
         [HttpPost]
         public ActionResult Registro(Usuario newUser)
         {
+            bool x = newUser.Password.Any(p => char.IsUpper(p));
+            bool y = newUser.Password.Any(p => char.IsLower(p));
+            bool z = newUser.Password.Any(p => char.IsDigit(p));
+
             var isValid = ModelState.IsValid;
 
             if (isValid)
             {
-                if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
+                if (x && y && z)
                 {
-                    if (usuarioService.VerificarUsuarioActivo(newUser))
+                    if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
                     {
-                        return RedirectToAction("Login");
+                        if (usuarioService.VerificarUsuarioActivo(newUser))
+                        {
+                            return RedirectToAction("Login");
+                        }
+                        else
+                        {
+                            ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
+                            return View(newUser);
+                        }
                     }
-                    else
-                    {
-                        ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
-                        return View(newUser);
-                    }
-                }
+                
                 usuarioService.RegistrarUsuario(newUser);
                 return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewBag.mensajeDeErrorPassword = "La contraseña debe contener mayusculas, minusculas y numeros.";
+                    return View(newUser);
+                }
             }
             
             return View();

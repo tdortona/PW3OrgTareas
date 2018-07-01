@@ -44,9 +44,10 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = true, maxlength = "50"})
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = true, maxlength = "50" })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
+                        <div>@ViewBag.mensajeDeErrorPassword</div>
                     </div>
 
                     <div class="form-group">
@@ -55,6 +56,8 @@
                             @Html.PasswordFor(model => model.RepetirPassword, new { @class = "form-control", required = true, maxlength = "50" })
                             @Html.ValidationMessageFor(model => model.RepetirPassword, "", new { @class = "text-danger" })
                         </div>
+                        
+                        
                     </div>
 
                     <div class="form-group">
