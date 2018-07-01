@@ -1,23 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PW3OrgTareas.Repository;
+﻿using PW3OrgTareas.Repository;
 
 namespace PW3OrgTareas.Service
 {
     public class UsuarioService
     {
-        private readonly UsuarioRepository _usuarioRepository = new UsuarioRepository();
+        private readonly UsuarioRepository usuarioRepository = new UsuarioRepository();
 
         public Usuario VerificarExistenciaUsuario(Usuario u)
         {
-            return _usuarioRepository.VerificarExistenciaUsuario(u);
+            return usuarioRepository.VerificarExistenciaUsuario(u);
         }
 
         public void RegistrarUsuario(Usuario u)
         {
-            _usuarioRepository.RegistrarUsuario(u);
+            usuarioRepository.RegistrarUsuario(u);
+        }
+
+        public Usuario BuscarUsuarioPorMail(string email)
+        {
+            return usuarioRepository.BuscarUsuarioPorMail(email);
+        }
+
+        public bool VerificarUsuarioActivo(Usuario u)
+        {
+            Usuario usuarioAVerificar = BuscarUsuarioPorMail(u.Email);
+            if (usuarioAVerificar.Activo == 1)
+            {
+                return false;
+            }
+            else
+            {
+                u.Activo = 1;
+                usuarioRepository.ModificarUsuario(u);
+                return true;
+            }
         }
     }
 }

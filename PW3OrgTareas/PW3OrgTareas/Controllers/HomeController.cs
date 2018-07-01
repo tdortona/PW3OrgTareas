@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using PW3OrgTareas.Service;
@@ -30,7 +31,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View(model);
             }
-
+            
             return RedirectToAction("Login");
         }
 
@@ -46,11 +47,30 @@ namespace PW3OrgTareas.Controllers
             
             if (user != null)
             {
-                Session["Usuario"] = user;
-                return RedirectToAction("Index", "Home");
+                if (user.Activo != 0)
+                {
+                    Session["Usuario"] = user;
+                    if (Session["RedireccionLogin"] != null)
+                    {
+                        String accionSesion = (String)Session["RedireccionLogin"];
+                        String pattern = "/";
+                        String[] accion = Regex.Split(accionSesion, pattern);
+                        Session.Remove("RedireccionLogin");
+                        return RedirectToAction(accion[1], accion[0]);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.MensajeDeError = "Su usuario se encuentra inactivo";
+                    return View();
+                }
             }
-
-            return View();
+            else
+            {
+                ViewBag.mensajeDeError = "Verifique por favor su Usuario y/o Contraseña";
+                return View();
+            }
         }
 
         public ActionResult Logout()
@@ -72,6 +92,18 @@ namespace PW3OrgTareas.Controllers
 
             if (isValid)
             {
+                if (usuarioService.BuscarUsuarioPorMail(newUser.Email) != null)
+                {
+                    if (usuarioService.VerificarUsuarioActivo(newUser))
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        ViewBag.MensajeEmailExistente = "El email ingresado ya se encuentra en uso.";
+                        return View(newUser);
+                    }
+                }
                 usuarioService.RegistrarUsuario(newUser);
                 return RedirectToAction("Login");
             }
