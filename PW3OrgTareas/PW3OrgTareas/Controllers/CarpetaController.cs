@@ -19,7 +19,7 @@ namespace PW3OrgTareas.Controllers
             {
                 return View(carpetaService.GetCarpetasByUsuario(usuarioLogueado.IdUsuario));
             }
-
+            Session["RedireccionLogin"] = "Carpeta/Index";
             return RedirectToAction("Login", "Home");
         }
 
@@ -33,6 +33,7 @@ namespace PW3OrgTareas.Controllers
             }
             else
             {
+                Session["RedireccionLogin"] = "Carpeta/Crear";
                 return RedirectToAction("Login", "Home");
             }
 
@@ -62,7 +63,16 @@ namespace PW3OrgTareas.Controllers
 
         public ActionResult Tareas(int idCarpeta)
         {
-            return View();
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                return View();
+            }
+            else
+            {
+                Session["RedireccionLogin"] = "Carpeta/Tareas";
+                return RedirectToAction("Login", "Home");
+            }
         }
     }
 }

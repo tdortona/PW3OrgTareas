@@ -11,7 +11,17 @@ namespace PW3OrgTareas.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            return View();
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                return View();
+            }
+            else
+            {
+                Session["RedireccionLogin"] = "Home/Index";
+                return RedirectToAction("Login", "Home");
+            }
         }
+
     }
 }

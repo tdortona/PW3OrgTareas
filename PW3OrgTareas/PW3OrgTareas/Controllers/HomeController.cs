@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using PW3OrgTareas.Service;
@@ -30,7 +31,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View(model);
             }
-
+            
             return RedirectToAction("Login");
         }
 
@@ -47,6 +48,14 @@ namespace PW3OrgTareas.Controllers
             if (user != null)
             {
                 Session["Usuario"] = user;
+                if (Session["RedireccionLogin"] != null)
+                {
+                    String accionSesion = (String)Session["RedireccionLogin"];
+                    String pattern = "/";
+                    String[] accion = Regex.Split(accionSesion, pattern);
+                    Session.Remove("RedireccionLogin");
+                    return RedirectToAction(accion[1], accion[0]);
+                }
                 return RedirectToAction("Index", "Home");
             }
 

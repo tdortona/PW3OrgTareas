@@ -32,7 +32,7 @@ namespace PW3OrgTareas.Controllers
 
 
 
-
+            Session["RedireccionLogin"] = "Tarea/Index";
             return RedirectToAction("Login", "Home");
         }
 
@@ -75,7 +75,7 @@ namespace PW3OrgTareas.Controllers
 
                 return View();
             }
-
+            Session["RedireccionLogin"] = "Tarea/Crear";
             return RedirectToAction("Login", "Home");
         }
 
@@ -143,6 +143,7 @@ namespace PW3OrgTareas.Controllers
             }
             else
             {
+                Session["RedireccionLogin"] = "Tarea/Index";
                 return RedirectToAction("Login", "Home");
             }
 
@@ -159,6 +160,7 @@ namespace PW3OrgTareas.Controllers
             }
             else
             {
+                Session["RedireccionLogin"] = "Tarea/Index/";
                 return RedirectToAction("Login", "Home");
             }
         }
