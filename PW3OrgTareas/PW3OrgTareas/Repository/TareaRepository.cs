@@ -44,6 +44,19 @@ namespace PW3OrgTareas.Repository
             return ctx.Tarea.FirstOrDefault(x => x.IdTarea == idTarea);
         }
 
+        public Tarea GetTareaByIdConComentariosYAdjuntos(int idTarea)
+        {
+            Tarea tarea = ctx.Tarea
+                .Include("ArchivoTarea")
+                .Include("ComentarioTarea")
+                .FirstOrDefault(x => x.IdTarea == idTarea);
+
+            tarea.ArchivoTarea = tarea.ArchivoTarea.OrderByDescending(x => x.FechaCreacion).ToList();
+            tarea.ComentarioTarea = tarea.ComentarioTarea.OrderByDescending(x => x.FechaCreacion).ToList();
+
+            return tarea;
+        }
+
         public void EliminarTarea(int idTarea)
         {
             Tarea tareaAEliminar;
@@ -60,6 +73,20 @@ namespace PW3OrgTareas.Repository
         public void CompletarTarea(Tarea tareaACompletar)
         {
             tareaACompletar.Completada = 1;
+            ctx.SaveChanges();
+        }
+
+        public void CrearComentario(ComentarioTarea comentario)
+        {
+            comentario.FechaCreacion = DateTime.Now;
+            ctx.ComentarioTarea.Add(comentario);
+            ctx.SaveChanges();
+        }
+
+        public void AdjuntarArchivo(ArchivoTarea archivo)
+        {
+            archivo.FechaCreacion = DateTime.Now;
+            ctx.ArchivoTarea.Add(archivo);
             ctx.SaveChanges();
         }
     }

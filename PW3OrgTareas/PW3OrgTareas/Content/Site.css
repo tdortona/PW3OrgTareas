@@ -269,3 +269,7 @@ hr {
 .dropdown-menu > li > a {
     color: black;
 }
+
+.tdNuevo {
+    background-color: lightblue;
+}
