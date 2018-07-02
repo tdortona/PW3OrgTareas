@@ -13,7 +13,6 @@
                 <th>Fecha de Fin</th>
                 <th>Nombre</th>
                 <th>Prioridad</th>
-                <th>Carpeta</th>
                 <th>Estimado (hs)</th>
                 <th>Completada</th>
                 <th>Detalle</th>
@@ -26,8 +25,7 @@
                 <tr>
                     <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                     <td>@item.Nombre</td>
-                    <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
-                    <td>@item.NombreCarpeta</td>      
+                    <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>    
                     <td>@item.EstimadoHoras</td>
                     <td>@item.Completada</td>
                     <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
