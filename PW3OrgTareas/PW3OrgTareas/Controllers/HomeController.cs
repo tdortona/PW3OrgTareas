@@ -49,15 +49,63 @@ namespace PW3OrgTareas.Controllers
                 if (user.Activo != 0)
                 {
                     Session["Usuario"] = user;
+
+                    string result = string.Empty;
+                    Usuario usuarioCookie = usuarioService.BuscarUsuarioPorMail(u.Email);
+
                     if (Session["RedireccionLogin"] != null)
                     {
                         String accionSesion = (String)Session["RedireccionLogin"];
                         String pattern = "/";
                         String[] accion = Regex.Split(accionSesion, pattern);
                         Session.Remove("RedireccionLogin");
-                        return RedirectToAction(accion[1], accion[0]);
+
+                        if (Response.Cookies["usuarioSesion"].Values.Count > 0)
+                        {
+                            byte[] decryted = Convert.FromBase64String((string)Response.Cookies["usuarioSesion"].Value);
+                            result = System.Text.Encoding.Unicode.GetString(decryted);
+
+                            if (result == Convert.ToString(u.IdUsuario))
+                            {
+                                return RedirectToAction(accion[1], accion[0]);
+                            }
+                            else
+                            {
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            byte[] encryted = System.Text.Encoding.Unicode.GetBytes(Convert.ToString(usuarioCookie.IdUsuario));
+                            result = Convert.ToBase64String(encryted);
+                            Response.Cookies["usuarioSesion"].Value = result;
+                            return RedirectToAction(accion[1], accion[0]);
+                        }     
                     }
-                    return RedirectToAction("Index", "Home");
+
+                    if (Response.Cookies["usuarioSesion"].Values.Count > 0)
+                    {
+                        byte[] decryted = Convert.FromBase64String((string)Response.Cookies["usuarioSesion"].Value);
+                        result = System.Text.Encoding.Unicode.GetString(decryted);
+
+                        if (result == Convert.ToString(u.IdUsuario))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return View();
+                        }
+                    
+                    }
+                    else
+                    {
+                        byte[] encryted = System.Text.Encoding.Unicode.GetBytes(Convert.ToString(usuarioCookie.IdUsuario));
+                        result = Convert.ToBase64String(encryted);
+                        Response.Cookies["usuarioSesion"].Value = result;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
                 else
                 {
