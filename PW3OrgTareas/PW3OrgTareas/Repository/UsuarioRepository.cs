@@ -42,5 +42,10 @@ namespace PW3OrgTareas.Repository
             usuarioViejo.Activo = u.Activo;
             ctx.SaveChanges();
         }
+
+        public Usuario GetById(int id)
+        {
+            return ctx.Usuario.FirstOrDefault(x => x.IdUsuario == id);
+        }
     }
 }

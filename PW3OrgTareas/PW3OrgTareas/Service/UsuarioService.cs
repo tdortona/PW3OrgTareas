@@ -35,5 +35,10 @@ namespace PW3OrgTareas.Service
                 return true;
             }
         }
+
+        public Usuario GetById(int id)
+        {
+            return usuarioRepository.GetById(id);
+        }
     }
 }
