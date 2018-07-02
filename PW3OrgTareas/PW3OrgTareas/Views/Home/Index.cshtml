@@ -22,7 +22,7 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(Carpeta item in ViewBag.CarpetasUsuario)
+                        @foreach (Carpeta item in ViewBag.CarpetasUsuario)
                         {
                             <tr>
                                 <td><a href="/Tarea/TareasEnCarpeta/@item.IdCarpeta">@item.Nombre</a></td>
@@ -50,15 +50,25 @@ else
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            bool isComplete = item.Completada == 1;
                             <tr>
                                 <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                                 <td>@item.Nombre</td>
                                 <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
-                                <td>@item.NombreCarpeta</td>      
+                                <td>@item.NombreCarpeta</td>
                                 <td>@item.EstimadoHoras</td>
-                                <td>@item.Completada</td>
+                                <td>
+                                    @if (isComplete)
+                                    {
+                                        @:S&iacute;
+                                    }
+                                    else
+                                    {
+                                        @:No
+                                    }
+                                </td>
                                 <td><a href="/Tarea/Detalle/@item.IdTarea" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
-                                <td><input type="checkbox" id="chkCompletar" /></td>
+                                <td><input type="checkbox" id="chkCompletar" disabled="@isComplete" checked="@isComplete" onchange="completarTarea(this, @item.IdTarea)" /></td>
                             </tr>
                         }
                     </tbody>
@@ -67,3 +77,4 @@ else
         </div>
     </div>
 </div>
+<script type="text/javascript" src="~/Scripts/Tarea/Index.js"></script>
