@@ -157,7 +157,7 @@ namespace PW3OrgTareas.Controllers
             if (usuarioLogueado != null)
             {
                 ViewBag.NombreCarpeta = carpetaService.GetCarpetaById(id).Nombre;
-                return View(tareaService.GetTareasByCarpeta(id));
+                return View(tareaService.GetTareasByCarpeta(id, usuarioLogueado.IdUsuario));
             }
             else
             {

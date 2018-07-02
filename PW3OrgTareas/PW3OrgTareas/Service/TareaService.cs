@@ -26,9 +26,9 @@ namespace PW3OrgTareas.Service
             return tareaRepository.GetTareasNoCompletadasByUsuario(idUsuario);
         }
 
-        public List<Tarea> GetTareasByCarpeta(int idCarpeta)
+        public List<Tarea> GetTareasByCarpeta(int idCarpeta, int idUsuario)
         {
-            return tareaRepository.GetTareasByCarpeta(idCarpeta);
+            return tareaRepository.GetTareasByCarpeta(idCarpeta, idUsuario);
         }
 
         public void AgregarTarea(Tarea tareaNueva, int idUsuario)

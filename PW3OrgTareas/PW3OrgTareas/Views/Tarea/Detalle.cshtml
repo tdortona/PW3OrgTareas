@@ -48,7 +48,6 @@
         <caption><b>Comentarios</b></caption>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Texto</th>
                 <th>Fecha de creacion</th>
             </tr>
@@ -57,13 +56,11 @@
             @foreach (var com in Model.ComentarioTarea)
             {
                 <tr>
-                    <td>@com.IdComentarioTarea</td>
                     <td>@(string.IsNullOrWhiteSpace(com.Texto) ? "-" : com.Texto)</td>
                     <td>@com.FechaCreacion.ToString("dd/MM/yyyy")</td>
                 </tr>
             }
             <tr>
-                <td></td>
                 <td></td>
                 <td class="tdNuevo"><a href="/Tarea/NuevoComentario/@Model.IdTarea">Ingresar un nuevo comentario</a></td>
             </tr>

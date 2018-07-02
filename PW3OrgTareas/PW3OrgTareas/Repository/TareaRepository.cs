@@ -24,9 +24,9 @@ namespace PW3OrgTareas.Repository
             return ctx.Tarea.Where(x => x.IdUsuario == idUsuario && x.Completada != 1).OrderBy(x => x.Prioridad).ThenBy(x => x.FechaFin).ToList();
         }
 
-        public List<Tarea> GetTareasByCarpeta(int idCarpeta)
+        public List<Tarea> GetTareasByCarpeta(int idCarpeta, int idUsuario)
         {
-            return ctx.Tarea.Where(x => x.IdCarpeta == idCarpeta).ToList();
+            return ctx.Tarea.Where(x => x.IdCarpeta == idCarpeta && x.IdUsuario == idUsuario).ToList();
         }
 
         public void AgregarTarea(Tarea tareaNueva, int idUsuario)
