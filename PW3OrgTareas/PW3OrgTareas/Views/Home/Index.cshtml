@@ -57,7 +57,7 @@ else
                                 <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>
                                 <td>@item.NombreCarpeta</td>
                                 <td>@item.EstimadoHoras</td>
-                                <td>
+                                <td id="tdComplete_@item.IdTarea">
                                     @if (isComplete)
                                     {
                                         @:S&iacute;
@@ -77,4 +77,4 @@ else
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/Scripts/Tarea/Index.js"></script>
+<script type="text/javascript" src="~/Scripts/Site.js"></script>

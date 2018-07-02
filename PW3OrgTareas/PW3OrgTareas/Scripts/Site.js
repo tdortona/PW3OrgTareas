@@ -15,8 +15,22 @@
     showMonthAfterYear: false,
     yearSuffix: ''
 };
+
 $.datepicker.setDefaults($.datepicker.regional['es']);
+
 $(function () {
     $("#FechaFin").datepicker();
 });
 
+function completarTarea(element, idTarea) {
+    $.ajax({
+        dataType: 'html',
+        type: 'POST',
+        url: "/Tarea/CompletarTarea?idTarea=" + idTarea,
+        async: true,
+        success: function () {
+            $(element).prop("disabled", true);
+            $("#tdComplete_" + idTarea).text("Sí");
+        }
+    });
+}

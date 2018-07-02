@@ -22,16 +22,27 @@
         <tbody>
             @foreach (var item in Model)
             {
+                bool isComplete = item.Completada == 1;
                 <tr>
                     <td>@(item.FechaFin.HasValue ? item.FechaFin.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                     <td>@item.Nombre</td>
                     <td>@Enum.GetName(typeof(PrioridadEnum), item.Prioridad)</td>    
                     <td>@item.EstimadoHoras</td>
-                    <td>@item.Completada</td>
-                    <td><a href="/Tarea/Detalle" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
-                    <td><input type="checkbox" id="chkCompletar" /></td>
+                    <td id="tdComplete_@item.IdTarea">
+                        @if (isComplete)
+                        {
+                            @:S&iacute;
+                        }
+                        else
+                        {
+                            @:No
+                        }
+                    </td>
+                    <td><a href="/Tarea/Detalle/@item.IdTarea" title="Ver Detalle"><i class="fa fa-tasks"></i></a></td>
+                    <td><input type="checkbox" id="chkCompletar" disabled="@isComplete" checked="@isComplete" onchange="completarTarea(this, @item.IdTarea)" /></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+<script type="text/javascript" src="~/Scripts/Site.js"></script>
