@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Newtonsoft.Json.Linq;
 using PW3OrgTareas.Service;
 
@@ -118,6 +116,12 @@ namespace PW3OrgTareas.Controllers
 
         public ActionResult Registro()
         {
+            var usuarioLogueado = Session["Usuario"] as Usuario;
+            if (usuarioLogueado != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
             return View();
         }
 
